@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Inventario · Panel administrativo</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="admin-body">
+<div class="crt" aria-hidden="true"></div>
+
+<!-- Acceso -->
+<section class="login" id="login">
+  <form class="card" id="formLogin">
+    <h1>Panel administrativo</h1>
+    <p class="muted">Ingresa la clave para gestionar el inventario.</p>
+    <label>Clave<input type="password" name="clave" required autocomplete="current-password"></label>
+    <button class="btn btn-primary">Entrar</button>
+    <a href="index.html" class="muted small">← Volver a la tienda</a>
+  </form>
+</section>
+
+<main class="admin" id="admin" hidden>
+  <div class="admin-top">
+    <h1>Inventario <span class="fuente" id="fuente"></span></h1>
+    <div class="barra" style="margin:0">
+      <button class="btn btn-small" id="recargar">Recargar</button>
+      <a href="index.html" class="btn btn-small" target="_blank">Ver tienda</a>
+      <button class="btn btn-small" id="salir">Salir</button>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab on" data-tab="inventario">Inventario</button>
+    <button class="tab" data-tab="nuevo">Nuevo producto</button>
+    <button class="tab" data-tab="pedidos">Pedidos</button>
+    <button class="tab" data-tab="movimientos">Movimientos</button>
+    <button class="tab" data-tab="respaldo">Respaldo y publicación</button>
+  </div>
+
+  <!-- Inventario -->
+  <section class="panel on" id="p-inventario">
+    <div class="barra">
+      <input type="search" id="filtroInv" placeholder="Buscar referencia o nombre">
+      <select id="filtroEstado" style="width:auto">
+        <option value="">Todos</option><option value="bajo">Stock bajo</option><option value="cero">Agotados</option><option value="inactivo">Inactivos</option>
+      </select>
+    </div>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th></th><th>Ref.</th><th>Producto</th><th>Precio</th><th>Stock</th><th>Entrada rápida</th><th>Vendidas</th><th>Estado</th><th>Visible</th><th>Acciones</th></tr></thead>
+      <tbody id="tablaInv"></tbody>
+    </table></div>
+  </section>
+
+  <!-- Nuevo -->
+  <section class="panel" id="p-nuevo">
+    <form class="card form-nuevo" id="formNuevo">
+      <label>Referencia*<input name="ref" required placeholder="CAP-009"></label>
+      <label>Nombre*<input name="nombre" required></label>
+      <label>Categoría*<input name="categoria" required list="cats" placeholder="Trucker"></label>
+      <datalist id="cats"></datalist>
+      <label>Precio (COP)*<input name="precio" type="number" min="0" step="100" required></label>
+      <label>Stock inicial*<input name="stock" type="number" min="0" required></label>
+      <label>Vendidas<input name="ventas" type="number" min="0" value="0"></label>
+      <label class="full">Imagen (ruta en el repositorio o URL)<input name="imagen" placeholder="img/gorra-009.jpg"></label>
+      <label class="full">Descripción<textarea name="descripcion" rows="2"></textarea></label>
+      <div class="full"><button class="btn btn-primary">Agregar al inventario</button></div>
+    </form>
+  </section>
+
+  <!-- Pedidos -->
+  <section class="panel" id="p-pedidos">
+    <p class="muted small">Pedidos registrados desde este navegador. Con Google Sheets activo, todos los pedidos quedan además en la hoja «Pedidos».</p>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Pedido</th><th>Fecha</th><th>Cliente</th><th>Productos</th><th>Total</th><th>Comprobante Bre-B</th><th>Estado</th><th></th></tr></thead>
+      <tbody id="tablaPed"></tbody>
+    </table></div>
+  </section>
+
+  <!-- Movimientos -->
+  <section class="panel" id="p-movimientos">
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Fecha</th><th>Ref.</th><th>Tipo</th><th>Cantidad</th><th>Nota</th></tr></thead>
+      <tbody id="tablaMov"></tbody>
+    </table></div>
+  </section>
+
+  <!-- Respaldo -->
+  <section class="panel" id="p-respaldo">
+    <div class="barra">
+      <button class="btn btn-primary" id="expJson">Descargar inventario.js</button>
+      <button class="btn" id="expCsv">Descargar CSV (Excel)</button>
+      <button class="btn" id="expPed">Descargar pedidos CSV</button>
+      <label class="btn" style="flex-direction:row">Importar inventario<input type="file" id="impJson" accept=".js,.json" hidden></label>
+      <button class="btn btn-danger" id="reset">Restablecer desde GitHub</button>
+    </div>
+    <div class="ayuda">
+      <h3>Cómo publicar el inventario actualizado</h3>
+      <p>Sin Google Sheets, los cambios se guardan en este navegador. Para que todos los clientes vean el stock nuevo:</p>
+      <ol>
+        <li>Pulsa <b>Descargar inventario.js</b>.</li>
+        <li>En GitHub abre <code>data/inventario.js</code> → <b>Edit</b> (o «Upload files» en la carpeta <code>data</code>) y reemplázalo.</li>
+        <li>Haz <b>Commit</b>. En 1–2 minutos GitHub Pages publica el cambio.</li>
+      </ol>
+      <p style="margin-top:.6rem">Para inventario <b>automático y compartido en tiempo real</b> (cada venta descuenta stock para todos), activa Google Sheets siguiendo el README.</p>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg"><h3 id="dlgT"></h3><div id="dlgC"></div><div class="barra" style="margin-top:1rem;justify-content:flex-end"><button class="btn btn-small" onclick="dlg.close()">Cerrar</button></div></dialog>
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="data/inventario.js"></script>
+<script src="js/inventario.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

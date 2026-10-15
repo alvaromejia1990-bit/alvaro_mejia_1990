@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAPSULA · Gorras arcade</title>
+  <meta name="description" content="Tienda de gorras retro arcade: trucker, snapback y dad hat. Pago por Bre-B y confirmación por WhatsApp.">
+  <meta name="theme-color" content="#0b0620">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<!-- HUD superior -->
+<div class="hud" aria-hidden="true">
+  <span><b class="c-mag">1UP</b> <span id="hudScore">000000</span></span>
+  <span><b class="c-cyan">HI-SCORE</b> <span id="hudHi">000000</span></span>
+  <span><b class="c-yel">CRÉDITOS</b> <span id="hudCred">00</span></span>
+</div>
+
+<header class="topbar">
+  <a href="#inicio" class="logo"><img src="img/favicon.svg" alt="" class="logo-mark"><span data-cfg="nombre">CAPSULA</span></a>
+  <nav class="nav" id="nav">
+    <a href="#nosotros">Nosotros</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#ventas">Ventas</a>
+    <a href="#contacto">Contáctanos</a>
+  </nav>
+  <button class="cart-btn" id="abrirCarrito" aria-label="Abrir carrito">
+    <svg viewBox="0 0 16 16" width="22" height="22" shape-rendering="crispEdges" fill="currentColor"><path d="M1 2h3v1H1zM4 3h1v6H4zM5 4h10v1H5zM14 5h1v3h-1zM5 8h9v1H5zM5 10h9v1H5zM5 12h2v2H5zM11 12h2v2h-2z"/></svg>
+    <span class="badge" id="contador">0</span>
+  </button>
+  <button class="menu-btn" id="menuBtn" aria-label="Menú">≡</button>
+</header>
+
+<!-- ================= INICIO ================= -->
+<section class="hero" id="inicio">
+  <div class="hero-text">
+    <p class="kicker blink">▶ INSERT COIN</p>
+    <h1><span class="h-a">GORRAS</span><span class="h-b">NIVEL</span><span class="h-c">ARCADE</span></h1>
+    <p class="lead">Trucker, snapback y dad hat en ediciones cortas. Elige tu jugador, paga por Bre-B y confirma tu pedido por WhatsApp.</p>
+    <div class="hero-cta">
+      <a href="#catalogo" class="btn btn-primary">PRESS START</a>
+      <a href="#ventas" class="btn btn-ghost">CÓMO JUGAR</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="sun"></div>
+    <div class="floor"></div>
+    <img src="img/gorra-008.svg" alt="Gorra trucker arcade" class="hero-cap c1">
+    <img src="img/gorra-001.svg" alt="" class="hero-cap c2">
+    <img src="img/gorra-003.svg" alt="" class="hero-cap c3">
+    <div class="sticker">BONUS<br>ENVÍO GRATIS<br><span id="envioGratis"></span></div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track">
+  <span>★ TRUCKER</span><span>★ SNAPBACK</span><span>★ DAD HAT</span><span>★ PAGO BRE-B</span><span>★ CONFIRMA POR WHATSAPP</span><span>★ GAME ON</span>
+  <span>★ TRUCKER</span><span>★ SNAPBACK</span><span>★ DAD HAT</span><span>★ PAGO BRE-B</span><span>★ CONFIRMA POR WHATSAPP</span><span>★ GAME ON</span>
+</div></div>
+
+<!-- ================= NOSOTROS ================= -->
+<section class="section" id="nosotros">
+  <div class="section-head"><span class="num">STAGE 01</span><h2>Nosotros</h2></div>
+  <div class="about">
+    <p class="about-big">Somos un taller pequeño que diseña gorras para el día a día: buenas telas, bordados limpios y colores que se ven desde la otra esquina del arcade.</p>
+    <div class="about-grid">
+      <article><span class="icon">◆</span><h3>Ediciones cortas</h3><p>Producimos lotes pequeños. Cuando un modelo se agota, puede que no vuelva.</p></article>
+      <article><span class="icon">▲</span><h3>Materiales que duran</h3><p>Algodón lavado, gabardina y malla transpirable. Costuras reforzadas en visera y copa.</p></article>
+      <article><span class="icon">●</span><h3>Compra directa</h3><p>Sin intermediarios: pagas por Bre-B y hablamos contigo por WhatsApp para coordinar el envío.</p></article>
+    </div>
+    <ul class="stats">
+      <li><strong id="statModelos">0</strong><span>modelos en juego</span></li>
+      <li><strong id="statVendidas">0</strong><span>gorras vendidas</span></li>
+      <li><strong>24H</strong><span>tiempo de despacho</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= CATÁLOGO ================= -->
+<section class="section section-alt" id="catalogo">
+  <div class="section-head"><span class="num">STAGE 02</span><h2>Catálogo</h2></div>
+  <p class="sub">SELECT YOUR CAP</p>
+  <div class="filtros">
+    <div class="chips" id="chips"></div>
+    <div class="filtros-der">
+      <input type="search" id="buscar" placeholder="Buscar nombre o referencia">
+      <select id="orden" aria-label="Ordenar">
+        <option value="ventas">Más vendidas</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="stock">Mayor disponibilidad</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid" id="grid"><p class="cargando blink">CARGANDO…</p></div>
+</section>
+
+<!-- ================= VENTAS ================= -->
+<section class="section" id="ventas">
+  <div class="section-head"><span class="num">STAGE 03</span><h2>Ventas</h2></div>
+
+  <ol class="pasos-guia">
+    <li><b>1</b>Elige tus gorras</li>
+    <li><b>2</b>Escribe tus datos</li>
+    <li><b>3</b>Paga por Bre-B</li>
+    <li><b>4</b>Confirma por WhatsApp</li>
+  </ol>
+
+  <div class="checkout">
+    <aside class="resumen card">
+      <h3>Tu pedido</h3>
+      <div id="resumenItems" class="resumen-items"></div>
+      <dl class="totales">
+        <div><dt>Subtotal</dt><dd id="tSub">$0</dd></div>
+        <div><dt>Envío</dt><dd id="tEnv">$0</dd></div>
+        <div class="total"><dt>Total</dt><dd id="tTot">$0</dd></div>
+      </dl>
+    </aside>
+
+    <div class="flujo">
+      <form class="card paso" id="formDatos" novalidate>
+        <h3><span class="paso-n">2</span> Datos del jugador</h3>
+        <p class="muted">Los usamos para confirmar tu pedido por WhatsApp y enviarlo.</p>
+        <div class="campos">
+          <label>Nombre completo*<input name="nombre" required autocomplete="name"></label>
+          <label>Correo electrónico*<input name="correo" type="email" required autocomplete="email"></label>
+          <label>Teléfono*<input name="telefono" type="tel" required pattern="[0-9 +\(\)\-]{7,}" autocomplete="tel"></label>
+          <label>Ciudad / municipio*<input name="ciudad" required autocomplete="address-level2"></label>
+          <label class="full">Dirección física*<input name="direccion" required autocomplete="street-address" placeholder="Calle, número, barrio, apto/casa"></label>
+          <label class="full">Información adicional<textarea name="adicional" rows="2" placeholder="Horario de entrega, punto de referencia…"></textarea></label>
+        </div>
+        <button class="btn btn-primary" type="submit">Continuar al pago ▶</button>
+      </form>
+
+      <div class="card paso bloqueado" id="pasoPago">
+        <h3><span class="paso-n">3</span> Pago con Bre-B</h3>
+        <div class="breb">
+          <div class="breb-logo">Bre-B</div>
+          <div>
+            <p class="muted">Desde la app de tu banco o billetera elige <b>Bre-B</b> e ingresa esta llave:</p>
+            <div class="llave">
+              <span id="brebLlave">—</span>
+              <button class="btn btn-small" type="button" id="copiarLlave">Copiar llave</button>
+            </div>
+            <p class="muted"><span id="brebTipo"></span> · Titular: <b id="brebTitular"></b></p>
+            <p class="monto">Valor a transferir: <b id="brebMonto">$0</b></p>
+          </div>
+        </div>
+        <ol class="mini-pasos">
+          <li>Abre tu banco → Transferir → Bre-B.</li>
+          <li>Pega la llave, verifica el titular y envía el valor exacto.</li>
+          <li>Copia el número de comprobante que te da el banco.</li>
+        </ol>
+        <form id="formPago" novalidate>
+          <label>Número de comprobante / referencia*
+            <input name="comprobante" required minlength="4" placeholder="Ej. 000123456789">
+          </label>
+          <label class="check"><input type="checkbox" name="confirmo" required> Confirmo que realicé la transferencia por Bre-B por el valor total.</label>
+          <button class="btn btn-primary" type="submit" id="btnPagar">Confirmar pago</button>
+        </form>
+      </div>
+
+      <div class="card paso bloqueado" id="pasoWhatsapp">
+        <h3><span class="paso-n">4</span> Confirma por WhatsApp</h3>
+        <p class="muted">Este mensaje llega a nuestra línea <b data-cfg="whatsappVisible"></b>. Adjunta allí el pantallazo del comprobante.</p>
+        <pre class="mensaje" id="mensajeWA"></pre>
+        <a class="btn btn-wa" id="btnWA" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+          Enviar pedido por WhatsApp
+        </a>
+        <p class="pedido-id muted">Pedido <b id="pedidoId"></b> registrado. El inventario ya fue descontado. <span class="c-yel">¡STAGE CLEAR!</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACTO ================= -->
+<section class="section section-alt" id="contacto">
+  <div class="section-head"><span class="num">STAGE 04</span><h2>Contáctanos</h2></div>
+  <div class="contacto">
+    <div class="canales">
+      <a class="canal wa" id="lnkWA" target="_blank" rel="noopener"><span>WhatsApp</span><b data-cfg="whatsappVisible"></b></a>
+      <a class="canal" id="lnkMail"><span>Correo electrónico</span><b data-cfg="correo"></b></a>
+      <a class="canal" id="lnkIG" target="_blank" rel="noopener"><span>Instagram</span><b>@capsula.gorras</b></a>
+      <a class="canal" id="lnkFB" target="_blank" rel="noopener"><span>Facebook</span><b>CAPSULA Gorras</b></a>
+      <a class="canal" id="lnkTT" target="_blank" rel="noopener"><span>TikTok</span><b>@capsula.gorras</b></a>
+      <div class="canal"><span>Ubicación</span><b data-cfg="ciudad"></b></div>
+    </div>
+    <form class="mensajeria card" id="formContacto" novalidate>
+      <h3>Envíanos un mensaje</h3>
+      <label>Nombre*<input name="nombre" required></label>
+      <label>Correo o teléfono*<input name="contacto" required></label>
+      <label>Asunto
+        <select name="asunto">
+          <option>Pregunta sobre un producto</option>
+          <option>Estado de mi pedido</option>
+          <option>Ventas al por mayor</option>
+          <option>Otro</option>
+        </select>
+      </label>
+      <label>Mensaje*<textarea name="mensaje" rows="4" required></textarea></label>
+      <div class="dos-btn">
+        <button class="btn btn-wa" type="submit" data-via="wa">Enviar por WhatsApp</button>
+        <button class="btn btn-ghost" type="submit" data-via="mail">Enviar por correo</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© 2026 <span data-cfg="nombre"></span> · <span data-cfg="eslogan"></span></span>
+  <span class="blink c-yel">GAME OVER? NUNCA.</span>
+  <a href="admin.html" class="admin-link">Acceso administrativo</a>
+</footer>
+
+<!-- ================= CARRITO ================= -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Carrito">
+  <div class="drawer-head"><h3>Carrito</h3><button class="x" id="cerrarCarrito" aria-label="Cerrar">×</button></div>
+  <div class="drawer-body" id="carritoItems"></div>
+  <div class="drawer-foot">
+    <div class="fila"><span>Subtotal</span><b id="dSub">$0</b></div>
+    <p class="muted" id="dEnvioMsg"></p>
+    <a href="#ventas" class="btn btn-primary btn-block" id="irPagar">Finalizar compra ▶</a>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/config.js"></script>
+<script src="data/inventario.js"></script>
+<script src="js/inventario.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
